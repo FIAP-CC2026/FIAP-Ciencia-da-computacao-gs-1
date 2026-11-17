@@ -1,0 +1,16 @@
+codigo;dia;de;para
+OC01;3;aberta;em_andamento
+OC13;5;aberta;em_andamento
+OC03;5;aberta;em_andamento
+OC01;6;em_andamento;concluida
+OC07;6;aberta;em_andamento
+OC08;7;aberta;em_andamento
+OC07;7;em_andamento;concluida
+OC03;9;em_andamento;concluida
+OC02;10;aberta;em_andamento
+OC14;10;aberta;em_andamento
+OC05;12;aberta;em_andamento
+OC14;12;em_andamento;concluida
+OC13;14;em_andamento;concluida
+OC11;16;aberta;em_andamento
+OC08;18;em_andamento;concluida

@@ -1,0 +1,18 @@
+codigo;bairro;local;categoria;descricao;status;dia_abertura;dia_conclusao
+OC01;Vila Nova;Ponto de ônibus;iluminacao;Poste apagado perto do ponto de ônibus;concluida;2;6
+OC02;Vila Nova;Esquina da escola;acessibilidade;Calçada sem rampa na esquina da escola;em_andamento;3;
+OC03;Vila Nova;Terreno baldio;limpeza;Entulho jogado no terreno baldio;concluida;4;9
+OC04;Vila Nova;Rua principal;conservacao;Buraco grande no meio da rua;aberta;20;
+OC05;Jardim Esperança;Praça central;iluminacao;Três postes piscando na praça;em_andamento;8;
+OC06;Jardim Esperança;Posto de saúde;acessibilidade;Piso tátil quebrado na calçada do posto de saúde;aberta;10;
+OC07;Jardim Esperança;Praça central;limpeza;Lixeira da praça transbordando;concluida;5;7
+OC08;Jardim Esperança;Praça central;conservacao;Banco da praça quebrado;concluida;6;18
+OC09;Jardim Esperança;UBS;acessibilidade;Rampa da UBS bloqueada por carros;aberta;22;
+OC10;Parque das Árvores;Rua residencial;iluminacao;Rua inteira sem luz à noite;aberta;25;
+OC11;Parque das Árvores;Avenida;limpeza;Boca de lobo entupida;em_andamento;12;
+OC12;Parque das Árvores;Quadra;conservacao;Grade da quadra solta;aberta;15;
+OC13;Parque das Árvores;Entrada do parque;acessibilidade;Degrau alto na entrada do parque;concluida;1;14
+OC14;Parque das Árvores;Quadra;iluminacao;Refletor da quadra queimado;concluida;9;12
+OC15;Vila Nova;Calçada;limpeza;Mato alto tomando a calçada;aberta;27;
+OC16;Vila Nova;Calçada;;Reclamação sem categoria;aberta;28;
+OC17;Jardim Esperança;Rua residencial;conservacao;Placa de rua torta;resolvido;11;
