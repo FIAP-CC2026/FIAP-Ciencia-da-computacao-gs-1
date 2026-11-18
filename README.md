@@ -39,12 +39,14 @@ O status só anda para frente, de aberta para em andamento e depois para conclu�
 
 ## Estruturas de dados
 
-- **Lista** com todas as ocorrências, usada para listar, filtrar e calcular os indicadores.
-- **Dicionário** com o código como chave, para achar uma ocorrência direto sem percorrer a lista.
-- **Fila** com as ocorrências abertas, na ordem em que chegaram. A primeira que entra é a primeira examinada (opção 6).
-- **Pilha** com os eventos de mudança de status. O último evento fica no topo, então mostrar os mais recentes é só olhar do fim para o começo (opção 7).
-- **Hierarquia** bairro, categoria e códigos, em dicionários dentro de dicionários, para ver os problemas de cada parte do bairro (opção 8).
-- **Matriz** categoria x status, uma lista de listas com a quantidade de cada combinação (opção 9).
+- **Lista** (`ocorrencias`) com todas as ocorrências, usada para listar, filtrar e calcular os indicadores.
+- **Dicionário** (`por_codigo`) indexado pelo código, para localizar uma ocorrência diretamente sem percorrer a lista.
+- **Fila FIFO** (`fila`) com as demandas abertas e ainda não examinadas. `enfileirar()` adiciona no final e `examinar_proxima()` retira a primeira demanda registrada.
+- **Pilha LIFO** (`pilha`) com os eventos de alteração de status. `empilhar_evento()` coloca um evento no topo e `ver_ultimos(n)` consulta os eventos mais recentes, do mais novo para o mais antigo.
+- **Hierarquia** bairro → categoria → códigos das ocorrências, formada por dicionários dentro de dicionários para organizar os problemas de cada região.
+- **Matriz** categoria × status, criada como uma lista de listas para contar as combinações de cada categoria com cada situação.
+
+As estruturas ficam centralizadas em `src/estruturas.py`. A lista e o dicionário apoiam as buscas gerais, a fila representa a ordem de atendimento, a pilha preserva a consulta dos eventos recentes, a hierarquia organiza os registros por região e a matriz resume os indicadores do painel.
 
 ## Regras e validação
 

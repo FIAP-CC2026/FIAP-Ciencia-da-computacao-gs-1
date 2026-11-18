@@ -12,20 +12,41 @@ def adicionar(oc):
     por_codigo[oc["codigo"]] = oc
 
 
-# fila: demandas ainda nao examinadas (primeira que entra, primeira que sai)
 def enfileirar(codigo):
-    fila.append(codigo)
+    if codigo not in fila:
+        fila.append(codigo)
+
+
+def fila_vazia():
+    return len(fila) == 0
+
+
+def tamanho_fila():
+    return len(fila)
 
 
 def examinar_proxima():
-    if len(fila) == 0:
+    if fila_vazia():
         return None
     return fila.pop(0)
 
 
-# pilha: eventos mais recentes ficam no topo
 def empilhar_evento(evento):
     pilha.append(evento)
+
+
+def pilha_vazia():
+    return len(pilha) == 0
+
+
+def tamanho_pilha():
+    return len(pilha)
+
+
+def desempilhar_evento():
+    if pilha_vazia():
+        return None
+    return pilha.pop()
 
 
 def ver_ultimos(n):

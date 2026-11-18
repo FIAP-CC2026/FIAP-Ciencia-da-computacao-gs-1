@@ -106,7 +106,7 @@ def opcao_atualizar():
 
 # tira a primeira da fila e coloca em andamento
 def opcao_fila():
-    if len(estruturas.fila) == 0:
+    if estruturas.fila_vazia():
         print("fila vazia, nenhuma ocorrência esperando")
         return
     print("fila:", ", ".join(estruturas.fila))
@@ -120,7 +120,7 @@ def opcao_historico():
     print("últimos eventos (mais recente primeiro):")
     for ev in estruturas.ver_ultimos(5):
         print(f"  dia {ev['dia']:>2} | {ev['codigo']} | {NOMES[ev['de']]} -> {NOMES[ev['para']]}")
-    print(f"total de eventos: {len(estruturas.historico)}")
+    print(f"total de eventos: {estruturas.tamanho_pilha()}")
 
 
 def opcao_bairros():
