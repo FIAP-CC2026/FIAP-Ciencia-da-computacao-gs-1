@@ -7,7 +7,7 @@ Painel de ocorrências de bairro feito em Python, no terminal. Cadastra, consult
 Grupo 1, turma 1CCON
 
 - Gabriel Ferreira da Silva, RM574677
-- José Kauan Medeiros Machado, RM
+- José Kauan Medeiros Machado, RM574820
 - Murilo Ribeiro Falconeri, RM
 - Gustavo Rocha Caxias, RM
 
