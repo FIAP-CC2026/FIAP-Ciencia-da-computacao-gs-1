@@ -9,7 +9,7 @@ Grupo 1, turma 1CCON
 - Gabriel Ferreira da Silva, RM574677
 - José Kauan Medeiros Machado, RM574820
 - Murilo Ribeiro Falconeri, RM
-- Gustavo Rocha Caxias, RM
+- Gustavo Rocha Caxias, RM576609
 
 ## Bairro, problema e público
 
