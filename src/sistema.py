@@ -30,13 +30,16 @@ def carregar():
         if oc["status"] == "aberta":
             estruturas.enfileirar(oc["codigo"])
 
-    for ev in dados.carregar_historico():
+    codigos = [oc["codigo"] for oc in validas]
+    for ev in dados.carregar_historico(codigos):
         estruturas.historico.append(ev)
         estruturas.empilhar_evento(ev)
 
     print(f"{len(validas)} ocorrências carregadas, {len(estruturas.historico)} eventos no histórico")
     for codigo, motivo in invalidas:
         print(f"aviso: {codigo} ignorada, {motivo}")
+    for motivo in dados.eventos_recusados:
+        print(f"aviso: evento ignorado, {motivo}")
 
 
 # mostra as opcoes numeradas e devolve a escolhida (None se deixar em branco)
@@ -106,7 +109,7 @@ def opcao_atualizar():
 
 # tira a primeira da fila e coloca em andamento
 def opcao_fila():
-    if estruturas.fila_vazia():
+    if len(estruturas.fila) == 0:
         print("fila vazia, nenhuma ocorrência esperando")
         return
     print("fila:", ", ".join(estruturas.fila))
@@ -120,7 +123,7 @@ def opcao_historico():
     print("últimos eventos (mais recente primeiro):")
     for ev in estruturas.ver_ultimos(5):
         print(f"  dia {ev['dia']:>2} | {ev['codigo']} | {NOMES[ev['de']]} -> {NOMES[ev['para']]}")
-    print(f"total de eventos: {estruturas.tamanho_pilha()}")
+    print(f"total de eventos: {len(estruturas.historico)}")
 
 
 def opcao_bairros():
