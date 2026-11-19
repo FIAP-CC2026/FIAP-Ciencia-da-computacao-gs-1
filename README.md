@@ -25,9 +25,9 @@ python src/sistema.py
 
 ## Dados
 
-As ocorrências ficam em `data/dados.csv` e o histórico de mudanças em `data/historico.csv`, os dois separados por `;`. Cada ocorrência tem código, bairro, local, categoria, descrição, status, dia de abertura e dia de conclusão. Só o dia de conclusão pode ficar vazio, e só quando a ocorrência não foi concluída.
+As ocorrências ficam em `data/dados.csv` e o histórico de mudanças em `data/historico.csv`, os dois separados por `;`. Cada ocorrência tem código, bairro, local, categoria, descrição, status, dia de abertura e dia de conclusão. Todos os campos são obrigatórios, exceto o dia de conclusão, que só é obrigatório (e só pode existir) quando a ocorrência está concluída. Os dias são números simulados (dia 1, dia 2...) e o "hoje" do sistema é o dia 30. Os arquivos são lidos sem biblioteca, linha a linha: a primeira linha é o cabeçalho, cada valor é separado por `;`, espaços nas pontas são ignorados e uma linha curta é completada com campos vazios (que a validação depois recusa).
 
-São 17 linhas: 15 válidas e 2 com erro de propósito (OC16 sem categoria e OC17 com status "resolvido"), que o sistema recusa ao abrir. O histórico tem 15 eventos.
+São 17 linhas: 15 válidas e 2 com erro de propósito (OC16 sem categoria e OC17 com status "resolvido"), que o sistema recusa ao abrir. Todas as 4 categorias e os 3 status aparecem nas linhas válidas. O histórico tem 15 eventos, no formato `codigo;dia;de;para`, e passa pela mesma ideia de validação (veja abaixo).
 
 Status usados:
 
@@ -50,18 +50,30 @@ As estruturas ficam centralizadas em `src/estruturas.py`. A lista e o dicionári
 
 ## Regras e validação
 
-Uma ocorrência só entra se passar por esta regra, no `src/dados.py`:
+Uma ocorrência só entra se passar por `validar_ocorrencia`, no `src/dados.py`. A expressão completa é:
 
-```python
-if oc["descricao"] == "" or oc["bairro"] == "" or oc["local"] == "":
-    return False, "faltou descrição, bairro ou local"
-elif oc["categoria"] not in CATEGORIAS:
-    return False, "categoria inválida ou vazia"
-elif not validar_status(oc["status"]):
-    return False, "status desconhecido (" + oc["status"] + ")"
+```
+VALIDA = NOT faltou_texto AND categoria_ok AND status_ok AND abertura_ok
+         AND NOT (concluida AND sem_conclusao)
+         AND NOT (NOT concluida AND tem_conclusao)
+         AND NOT (concluida AND conclusao < abertura)
 ```
 
-Basta um campo obrigatório vazio para o `or` dar verdadeiro e a ocorrência ser recusada. Por isso a OC16, que não tem categoria, cai no segundo teste, e a OC17 cai no terceiro porque "resolvido" não é um status da lista.
+onde `faltou_texto = descrição vazia OR bairro vazio OR local vazio`, `abertura_ok` quer dizer dia de abertura numérico e não maior que o dia atual, e `concluida` quer dizer status igual a "concluida". No código isso vira uma cadeia de `if/elif`, e o primeiro teste que falha define a mensagem:
+
+| Teste (em ordem) | Mensagem | Por que dá essa mensagem |
+|---|---|---|
+| `descricao == "" or bairro == "" or local == ""` | faltou descrição, bairro ou local | o `or` dá verdadeiro se qualquer um dos três estiver vazio |
+| `categoria not in CATEGORIAS` | categoria inválida ou vazia | vazia ou fora das 4 categorias |
+| `not validar_status(status)` | status desconhecido (...) | o `not` inverte: recusa o que não está na lista de status |
+| `abertura is None or abertura > DIA_ATUAL` | dia de abertura inválido | não é número ou é um dia que ainda não chegou |
+| `concluida and conclusao is None` | concluída sem dia de conclusão | só dispara quando as duas coisas são verdade ao mesmo tempo |
+| `not concluida and conclusao is not None` | tem dia de conclusão mas não está concluída | o contrário do teste anterior |
+| `concluida and conclusao < abertura` | concluída antes de ser aberta | datas incoerentes |
+
+Se nenhum teste falha, a resposta é `(True, "ok")`. Por isso a OC16, sem categoria, para no segundo teste, e a OC17 para no terceiro porque "resolvido" não é um status da lista. Depois de validar, o carregamento ainda recusa código vazio e código repetido (a segunda ocorrência com o mesmo código é ignorada).
+
+O histórico usa `validar_evento`: o evento só vale se o código existe, os dois status existem (`validar_status(de) and validar_status(para)`), o dia é válido e o status anda para frente (`STATUS.index(para) > STATUS.index(de)`). Eventos recusados aparecem como aviso ao abrir o programa, igual às ocorrências.
 
 No filtro, `(categoria is None or oc["categoria"] == categoria) and (status is None or oc["status"] == status)` deixa o campo em branco valer como "todos". Na atualização, o sistema recusa status desconhecido e não deixa voltar de concluída.
 
