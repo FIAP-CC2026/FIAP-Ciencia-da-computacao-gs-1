@@ -43,7 +43,7 @@ O status só anda para frente, de aberta para em andamento e depois para conclu�
 - **Dicionário** (`por_codigo`) indexado pelo código, para localizar uma ocorrência diretamente sem percorrer a lista.
 - **Fila FIFO** (`fila`) com as demandas abertas e ainda não examinadas. `enfileirar()` adiciona no final e `examinar_proxima()` retira a primeira demanda registrada.
 - **Pilha LIFO** (`pilha`) com os eventos de alteração de status. `empilhar_evento()` coloca um evento no topo e `ver_ultimos(n)` consulta os eventos mais recentes, do mais novo para o mais antigo.
-- **Hierarquia** bairro → categoria → códigos das ocorrências, formada por dicionários dentro de dicionários para organizar os problemas de cada região.
+- **Hierarquia** com bairro, categoria e códigos das ocorrências, formada por dicionários dentro de dicionários para organizar os problemas de cada região.
 - **Matriz** categoria × status, criada como uma lista de listas para contar as combinações de cada categoria com cada situação.
 
 As estruturas ficam centralizadas em `src/estruturas.py`. A lista e o dicionário apoiam as buscas gerais, a fila representa a ordem de atendimento, a pilha preserva a consulta dos eventos recentes, a hierarquia organiza os registros por região e a matriz resume os indicadores do painel.
@@ -123,7 +123,11 @@ Deixamos o menu só com números pra ninguém precisar decorar comando. No cadas
 
 ## Vídeo
 
-Link:
+https://youtu.be/ifaZH5-F1vQ
+
+## Relatório
+
+O relatório completo está em [`docs/relatorio.pdf`](docs/relatorio.pdf).
 
 ## Conclusões, limitações e aprendizados
 
